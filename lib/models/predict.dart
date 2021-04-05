@@ -42,7 +42,6 @@ class Predict {
 
   Predict.fromList(List<dynamic> list) {
     list = list.join(' ').replaceAll(' ', '.').split(';');
-    print(list);
 
     this.sex = int.tryParse(list[0]);
     this.meat = int.tryParse(list[1]);

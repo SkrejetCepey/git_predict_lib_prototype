@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:med_predict_lib_prototype/cubits/data_table_cubit.dart';
-import '';
-import 'package:med_predict_lib_prototype/tools/performance_analyser.dart';
 
 import 'models/predict.dart';
 
@@ -23,30 +21,32 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
 
-    return BlocProvider<DataTableCubit>(
-      create: (BuildContext context) => DataTableCubit(context),
-      child: MaterialApp(
-        home: MedPredictDataTable(),
-        theme: ThemeData(
-          brightness: Brightness.light,
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-        ),
-        themeMode: ThemeMode.dark,
+    return MaterialApp(
+      home: BlocProvider<DataTableCubit>(
+          create: (BuildContext context) => DataTableCubit(context),
+          child: MedPredictDataTable()
       ),
+      theme: ThemeData(
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.dark,
     );
+
   }
 }
 
 class MedPredictDataTable extends StatelessWidget {
 
+  MedPredictDataTable({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    DataTableCubit dataTableCubit = BlocProvider.of<DataTableCubit>(context);
-    final PerformanceAnalyser _performanceAnalyser = PerformanceAnalyser(context: context)..start();
     return BlocBuilder<DataTableCubit, DataTableState>(
       builder: (BuildContext context, DataTableState state) {
+        DataTableCubit dataTableCubit = BlocProvider.of<DataTableCubit>(context);
         return Scaffold(
           appBar: AppBar(
             title: Text('MedPredictLib ${dataTableCubit.currentDatabaseIndex}'),
@@ -56,9 +56,7 @@ class MedPredictDataTable extends StatelessWidget {
           ),
           body: Builder(
             builder: (BuildContext context) {
-
               if (state is DataTableInitialised) {
-                Future.microtask(() => _performanceAnalyser.stop());
                 return SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: SingleChildScrollView(

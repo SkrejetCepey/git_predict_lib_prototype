@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class PerformanceAnalyser {
 
-  Stopwatch _timer = Stopwatch();
+  final Stopwatch _timer = Stopwatch();
   final BuildContext context;
+  final String testThing;
 
-  PerformanceAnalyser({@required this.context});
+  PerformanceAnalyser({@required this.context, @required this.testThing});
 
   void start() {
     _timer.start();
   }
 
   void _showElapsedTime() {
-    SnackBar snack = SnackBar(content: Text(_timer.elapsed.toString()));
+    SnackBar snack = SnackBar(content: Text("$testThing: ${_timer.elapsed}"));
     ScaffoldMessenger.of(context).showSnackBar(snack);
   }
 

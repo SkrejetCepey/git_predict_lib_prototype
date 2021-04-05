@@ -80,8 +80,6 @@ class DBDriver extends predictDatabase.Database<Predict> with ConverterPredictTo
   Future<void> create(Predict predict) async {
     Database db = await database;
 
-
-    print('PREDICT IN CREATE: $predict');
     return await db.rawInsert(
         'INSERT INTO predicts (sex, meat, fish, vegetables, sweet, milk, curd, cheese, phys_activity, smoke, sleep_duration, '
             'asleep_rate, sleep_resist, diabetes_relatives, osteochondrosis, chronic_bronchitis, bronchial_asthma, gtd, ulcer, kidney_diseases, '
